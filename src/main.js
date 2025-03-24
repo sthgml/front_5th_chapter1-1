@@ -3,7 +3,7 @@ import Router from "./Router.js";
 
 function main() {
   const router = new Router(routes);
-  router.navigate("/");
+  router.render();
 }
 
 main();

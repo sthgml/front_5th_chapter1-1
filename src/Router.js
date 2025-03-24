@@ -1,9 +1,12 @@
 export default class Router {
+  currentPath;
+
   // singleton
   constructor(routes) {
     if (Router.instance) {
       return Router.instance; // 이게 싱글톤 패턴을 위한 생성자 코드
     }
+    this.currentPath = window.location.pathname;
     this._routes = routes;
     Router.instance = this;
   }
@@ -19,9 +22,16 @@ export default class Router {
     return handler;
   }
 
-  // navigate는 _handleRoute private 함수를 이용해서 handler가 반환한 컴포넌트 HTML을 렌더링 합니다
+  // navigate는 현재 경로를 path로 바꿔줍니다.
   navigate(path) {
-    const componentFn = this._handleRoute(path);
+    this.currentPath = path;
+    window.history.pushState(path);
+    this.render();
+  }
+
+  // render 는 현재 경로를 기반으로 _handleRoute private 함수를 이용해서 handler가 반환한 컴포넌트 HTML을 렌더링 합니다
+  render() {
+    const componentFn = this._handleRoute(this.currentPath);
     const component = componentFn();
     this.attachDocument(component);
   }
