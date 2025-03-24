@@ -1,6 +1,13 @@
 export default class Router {
   currentPath;
 
+  addRoute(route, handler) {
+    if (this._routes != null) {
+      return;
+    }
+    this._routes[route] = handler;
+  }
+
   // singleton
   constructor(routes) {
     if (Router.instance) {
@@ -11,8 +18,14 @@ export default class Router {
     Router.instance = this;
   }
 
-  addRoute(route, handler) {
-    this._routes[route] = handler;
+  init() {
+    this.startDetect();
+
+    if (this.currentPath === "") {
+      this.router.navigate("/");
+    } else {
+      this.render();
+    }
   }
 
   // 1. router를 historyAPI를 사용해 구현
@@ -24,9 +37,20 @@ export default class Router {
 
   // navigate는 현재 경로를 path로 바꿔줍니다.
   navigate(path) {
-    this.currentPath = path;
     window.history.pushState(path);
-    this.render();
+    this.currentPath = path;
+    this.notify();
+  }
+
+  // 상태를 변경시키면 이벤트를 발생시킨다.
+  notify() {
+    window.dispatchEvent(new CustomEvent("pathchange"));
+  }
+
+  startDetect() {
+    window.addEventListener("pathchange", () => {
+      this.render();
+    });
   }
 
   // render 는 현재 경로를 기반으로 _handleRoute private 함수를 이용해서 handler가 반환한 컴포넌트 HTML을 렌더링 합니다
