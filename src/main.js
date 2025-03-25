@@ -30,13 +30,26 @@ function main() {
   // form 제출 이벤트 감지하기
   window.addEventListener("submit", (e) => {
     console.log("submit");
-    const formElements = e.target.elements;
-    loginStore.setUserInfo({
-      username: formElements.username.value,
-      email: formElements.email.value,
-      bio: "",
-    });
-    router.navigate("/");
+    if (e.target.id === "login-form") {
+      const formElements = e.target.elements;
+      loginStore.setUserInfo({
+        username: formElements.username.value,
+        email: formElements.email.value,
+        bio: "",
+      });
+      router.navigate("/");
+    }
+
+    console.log(e.target.id);
+    if (e.target.id === "profile-form") {
+      const formElements = e.target.elements;
+      loginStore.setUserInfo({
+        username: formElements.username.value,
+        email: formElements.email.value,
+        bio: formElements.bio.value,
+      });
+      router.navigate("");
+    }
   });
 }
 

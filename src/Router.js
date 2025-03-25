@@ -53,7 +53,10 @@ export default class Router {
     }
 
     const componentFn = this._handleRoute(this.currentPath);
-    const component = componentFn();
+    const component = componentFn({
+      router: this.router,
+      loginStore: this.loginStore,
+    });
     this.attachDocument(component);
   }
 
