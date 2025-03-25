@@ -1,5 +1,5 @@
 export default class LoginStore {
-  userInfo;
+  userInfo = null;
   key = "user";
 
   constructor() {
@@ -17,12 +17,13 @@ export default class LoginStore {
   }
 
   setUserInfo(newUserInfo) {
+    this.userInfo = newUserInfo;
+
     if (newUserInfo == null) {
       localStorage.removeItem(this.key);
       return;
     }
 
-    this.userInfo = newUserInfo;
     localStorage.setItem(this.key, JSON.stringify(newUserInfo));
   }
 

@@ -40,7 +40,7 @@ export default class Router {
     const isLoggedIn = this.loginStore.isLoggedIn();
     if (targetPath === "/profile" && !isLoggedIn) {
       return "/login";
-    } else if (targetPath === "login" && isLoggedIn) {
+    } else if (targetPath === "/login" && isLoggedIn) {
       return "/";
     }
   }
@@ -49,12 +49,14 @@ export default class Router {
   render() {
     const redirectTarget = this.needRedirect(this.currentPath);
     if (redirectTarget != null) {
+      console.log(redirectTarget);
       this.navigate(redirectTarget);
     }
 
     const componentFn = this._handleRoute(this.currentPath);
+    console.log(componentFn);
     const component = componentFn({
-      router: this.router,
+      router: this,
       loginStore: this.loginStore,
     });
     this.attachDocument(component);
