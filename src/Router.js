@@ -9,61 +9,48 @@ export default class Router {
     this._routes[route] = handler;
   }
 
-  // singleton
   constructor(routes, loginStore) {
     if (Router.instance) {
-      return Router.instance; // 이게 싱글톤 패턴을 위한 생성자 코드
+      return Router.instance; // 싱글톤 패턴을 위한 생성자 코드
     }
+    Router.instance = this;
+
     this.currentPath = window.location.pathname;
     this._routes = routes;
     this.loginStore = loginStore;
-    Router.instance = this;
-  }
 
-  init() {
-    this.startDetect();
-
-    if (this.currentPath === "") {
-      this.router.navigate("/");
-    } else {
+    window.addEventListener("popstate", () => {
+      this.currentPath = window.location.pathname;
       this.render();
-    }
+    });
+
+    this.render();
   }
 
   // 1. router를 historyAPI를 사용해 구현
-  // checkLogin
-  needLogin(path) {
-    const isLoggedIn = this.loginStore.isLoggedIn();
-    if (path !== "login" && !isLoggedIn) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  // navigate는 현재 경로를 path로 바꿔줍니다.
-  // 상태를 변경시키면 이벤트를 발생시킨다.
+  //   navigate는 현재 경로를 path로 바꿔줍니다.
+  //   상태를 변경시키면 이벤트를 발생시킨다.
   navigate(path) {
     this.currentPath = path;
-    window.history.pushState({}, "", path);
+    window.history.pushState({ path }, "", path);
   }
 
-  startDetect() {
-    window.addEventListener("popstate", () => {
-      this.render();
-    });
-  }
-
-  redirectForLogin() {
-    if (this.needLogin(this.currentPath)) {
-      this.navigate("/login");
-      return;
+  needRedirect(targetPath) {
+    const isLoggedIn = this.loginStore.isLoggedIn();
+    if (targetPath === "/profile" && !isLoggedIn) {
+      return "/login";
+    } else if (targetPath === "login" && isLoggedIn) {
+      return "/";
     }
   }
 
   // render 는 현재 경로를 기반으로 _handleRoute private 함수를 이용해서 handler가 반환한 컴포넌트 HTML을 렌더링 합니다
   render() {
-    this.redirectForLogin();
+    const redirectTarget = this.needRedirect(this.currentPath);
+    if (redirectTarget != null) {
+      this.navigate(redirectTarget);
+    }
+
     const componentFn = this._handleRoute(this.currentPath);
     const component = componentFn();
     this.attachDocument(component);

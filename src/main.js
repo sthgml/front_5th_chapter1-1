@@ -12,8 +12,6 @@ function main() {
     console.log(targetButton.dataset.path);
     router.navigate(targetButton.dataset.path);
   });
-
-  router.init();
 }
 
 main();
