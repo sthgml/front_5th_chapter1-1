@@ -8,8 +8,7 @@ function main() {
 
   // button click 이벤트 감지하기
   window.addEventListener("click", (e) => {
-    const targetButton =
-      e.target.tagName === "BUTTON" ? e.target : e.target.closest("BUTTON");
+    const targetButton = e.target;
     if (targetButton) {
       if (targetButton.dataset.path == null) {
         return;
