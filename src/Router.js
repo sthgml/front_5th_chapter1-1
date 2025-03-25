@@ -49,12 +49,10 @@ export default class Router {
   render() {
     const redirectTarget = this.needRedirect(this.currentPath);
     if (redirectTarget != null) {
-      console.log(redirectTarget);
       this.navigate(redirectTarget);
     }
 
     const componentFn = this._handleRoute(this.currentPath);
-    console.log(componentFn);
     const component = componentFn({
       router: this,
       loginStore: this.loginStore,
