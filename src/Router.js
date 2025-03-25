@@ -33,6 +33,7 @@ export default class Router {
   navigate(path) {
     this.currentPath = path;
     window.history.pushState({ path }, "", path);
+    window.dispatchEvent(new Event("popstate"));
   }
 
   needRedirect(targetPath) {
