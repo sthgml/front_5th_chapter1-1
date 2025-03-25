@@ -29,7 +29,6 @@ function main() {
 
   // form 제출 이벤트 감지하기
   window.addEventListener("submit", (e) => {
-    console.log("submit");
     if (e.target.id === "login-form") {
       const formElements = e.target.elements;
       loginStore.setUserInfo({
@@ -40,7 +39,6 @@ function main() {
       router.navigate("/");
     }
 
-    console.log(e.target.id);
     if (e.target.id === "profile-form") {
       const formElements = e.target.elements;
       loginStore.setUserInfo({

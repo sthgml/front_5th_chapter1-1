@@ -9,7 +9,7 @@ const ProfilePage = ({ loginStore }) => {
           <h1 class="text-2xl font-bold">항해플러스</h1>
         </header>
 
-        ${Navigation()}
+        ${Navigation(loginStore)}
 
         <main class="p-4">
           <div class="bg-white p-8 rounded-lg shadow-md">
