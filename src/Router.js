@@ -18,12 +18,17 @@ export default class Router {
     this.currentPath = window.location.pathname;
     this._routes = routes;
     this.loginStore = loginStore;
+  }
 
+  startDetect() {
     window.addEventListener("popstate", () => {
       this.currentPath = window.location.pathname;
       this.render();
     });
+  }
 
+  init() {
+    this.startDetect();
     this.render();
   }
 
@@ -54,9 +59,10 @@ export default class Router {
 
     const componentFn = this._handleRoute(this.currentPath);
     const component = componentFn({
-      router: this,
+      currentPath: this.currentPath,
       loginStore: this.loginStore,
     });
+
     this.attachDocument(component);
   }
 
