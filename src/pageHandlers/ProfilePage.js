@@ -1,6 +1,6 @@
 import Navigation from "../components/Navigation";
 
-const ProfilePage = ({ router, loginStore }) => {
+const ProfilePage = ({ currentPath, loginStore }) => {
   return `
   <div id="root">
     <div class="bg-gray-100 min-h-screen flex justify-center">
@@ -9,7 +9,7 @@ const ProfilePage = ({ router, loginStore }) => {
           <h1 class="text-2xl font-bold">항해플러스</h1>
         </header>
 
-        ${Navigation(router.currentPath, loginStore)}
+        ${Navigation(currentPath, loginStore)}
 
         <main class="p-4">
           <div class="bg-white p-8 rounded-lg shadow-md">
