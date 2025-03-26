@@ -18,7 +18,8 @@
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:report": "npx playwright show-report",
     "test:generate": "playwright codegen localhost:5173",
-    "prepare": "husky"
+    "prepare": "husky",
+    "deploy": "pnpm build && pnpm exec gh-pages -d dist -b deploy"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
