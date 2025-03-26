@@ -1,10 +1,11 @@
 import routes from "./routes.js";
-import Router from "./Router.js";
+import HashRouter from "./HashRouter.js";
 import LoginStore from "./stores/LoginStore.js";
 
 function main() {
   const loginStore = new LoginStore();
-  const router = new Router(routes, loginStore);
+  const router = new HashRouter(routes, loginStore);
+  router.init();
 
   // button click 이벤트 감지하기
   window.addEventListener("click", (e) => {
