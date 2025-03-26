@@ -33,7 +33,7 @@ function main() {
       const formElements = e.target.elements;
       loginStore.setUserInfo({
         username: formElements.username.value,
-        email: formElements.email.value,
+        email: "",
         bio: "",
       });
       router.navigate("/");
