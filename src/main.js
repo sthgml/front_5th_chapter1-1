@@ -1,10 +1,11 @@
 import routes from "./routes.js";
 import HashRouter from "./HashRouter.js";
 import LoginStore from "./stores/LoginStore.js";
+const BASE_URL = import.meta.env.BASE_URL;
 
 function main() {
   const loginStore = new LoginStore();
-  const router = new HashRouter(routes, loginStore);
+  const router = new HashRouter(routes, loginStore, BASE_URL);
   router.init();
 
   // button click 이벤트 감지하기

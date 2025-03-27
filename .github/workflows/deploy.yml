@@ -6,32 +6,35 @@ on:
       - main
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
-
+    permissions:
+      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20.x
-
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 9.15.5
-          run_install: false
+          version: 10
 
-      - name: Install Dependencies
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "pnpm"
+
+      - name: Install dependencies
         run: pnpm install
 
       - name: Build
-        run: pnpm build && cp 404.html dist/
+        run: pnpm build
+        env:
+          NODE_ENV: production
 
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v4
+        uses: peaceiris/actions-gh-pages@v4.0.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist

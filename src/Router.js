@@ -1,9 +1,7 @@
-const BASE_PATH =
-  process.env.NODE_ENV === "production" ? "front-5th-chapter1-1" : "";
-
 export default class Router {
   currentPath;
   loginStore;
+  basePath;
 
   addRoute(route, handler) {
     if (this._routes != null) {
@@ -12,20 +10,22 @@ export default class Router {
     this._routes[route] = handler;
   }
 
-  constructor(routes, loginStore) {
+  // push 할 때는 base path 넣어서 보내고, 받아올 때는 base path를 빼서 담아주기
+  constructor(routes, loginStore, basePath = "") {
     if (Router.instance) {
       return Router.instance; // 싱글톤 패턴을 위한 생성자 코드
     }
     Router.instance = this;
 
-    this.currentPath = window.location.pathname;
+    this.basePath = basePath;
+    this.currentPath = window.location.pathname.replace(this.basePath, "");
     this._routes = routes;
     this.loginStore = loginStore;
   }
 
   startDetect() {
     window.addEventListener("popstate", () => {
-      this.currentPath = window.location.pathname;
+      this.currentPath = window.location.pathname.replace(this.basePath, "");
       this.render();
     });
   }
@@ -40,8 +40,7 @@ export default class Router {
   //   상태를 변경시키면 이벤트를 발생시킨다.
   navigate(path) {
     this.currentPath = path;
-    path = BASE_PATH + path;
-    console.log(path);
+    path = this.basePath + path;
     window.history.pushState({ path }, "", path);
     window.dispatchEvent(new Event("popstate"));
   }
