@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://sthgml.github.io/front-5th-chapter1-1",
   "scripts": {
     "dev": "vite",
     "dev:hash": "vite --open ./index.hash.html",
