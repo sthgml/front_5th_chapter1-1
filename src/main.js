@@ -15,12 +15,13 @@ function main() {
         return;
       }
 
-      if (targetButton.id === "logout") {
-        loginStore.setUserInfo(null);
-      }
-
       if (targetButton.id === "login") {
         return;
+      }
+
+      if (targetButton.id === "logout") {
+        console.log("set null", targetButton.id);
+        loginStore.setUserInfo(null);
       }
 
       router.navigate(targetButton.dataset.path);

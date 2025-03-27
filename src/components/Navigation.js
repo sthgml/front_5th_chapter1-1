@@ -10,13 +10,22 @@ const Navigation = (path, loginStore) => {
       <li>
         <a data-path='/profile' href='/profile' class=${path === "/profile" ? "text-blue-600 font-bold" : "text-gray-600"}>프로필</a></button></li>
       <li>
-        <a id="logout" data-path='/login' href='/login' class="text-gray-600">${loginStore.isLoggedIn() ? "로그아웃" : "로그인"}
-        </a>
+      <li>
+        ${loginStore.isLoggedIn() ? LogoutButton() : LoginButton()}
+      </li>
       </button>
     </li>
     </ul>
   </nav>
 `;
 };
+
+const LoginButton = () => `
+  <a id="login" data-path='/login' href='/login' class="text-gray-600">로그인</a>
+`;
+
+const LogoutButton = () => `
+  <a id="logout" data-path='/' href="/login" class="text-gray-600">로그아웃</a>
+`;
 
 export default Navigation;
