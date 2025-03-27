@@ -1,13 +1,15 @@
-import { defineConfig } from "vitest/config";
+import { loadEnv } from "vite";
 
-const isProduction = process.env.NODE_ENV === "production";
+export default ({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), "");
 
-export default defineConfig({
-  test: {
-    globals: true,
-    environment: "jsdom",
-    setupFiles: "./src/setupTests.js",
-    exclude: ["**/e2e/**", "**/*.e2e.spec.js", "**/node_modules/**"],
-  },
-  base: isProduction ? "/front_5th_chapter1-1/" : "/",
-});
+  return {
+    test: {
+      globals: true,
+      environment: "jsdom",
+      setupFiles: "./src/setupTests.js",
+      exclude: ["**/e2e/**", "**/*.e2e.spec.js", "**/node_modules/**"],
+    },
+    base: env.VITE_BASE_URL,
+  };
+};
