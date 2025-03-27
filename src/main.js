@@ -20,7 +20,6 @@ function main() {
       }
 
       if (targetButton.id === "logout") {
-        console.log("set null", targetButton.id);
         loginStore.setUserInfo(null);
       }
 

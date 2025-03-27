@@ -124,7 +124,6 @@ test.describe("SPA 심화 기능", () => {
     `);
 
     await page.evaluate(() => {
-      console.log(window.location.hash);
       window.location.hash = "#/nonexistent";
     });
 
