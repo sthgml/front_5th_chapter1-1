@@ -3,7 +3,7 @@ name: Deploy
 on:
   push:
     branches:
-      - feat/chapter-1-1
+      - main
 
 jobs:
   deploy:

@@ -1,3 +1,6 @@
+const BASE_PATH =
+  process.env.NODE_ENV === "production" ? "front-5th-chapter1-1" : "";
+
 export default class Router {
   currentPath;
   loginStore;
@@ -37,6 +40,8 @@ export default class Router {
   //   상태를 변경시키면 이벤트를 발생시킨다.
   navigate(path) {
     this.currentPath = path;
+    path = BASE_PATH + path;
+    console.log(path);
     window.history.pushState({ path }, "", path);
     window.dispatchEvent(new Event("popstate"));
   }
