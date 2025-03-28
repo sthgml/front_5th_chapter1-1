@@ -5,6 +5,7 @@ import ErrorPage from "./pageHandlers/ErrorPage.js";
 
 const routes = {
   "/": MainPage,
+  "": MainPage,
   "/profile": ProfilePage,
   "/login": LoginPage,
   "*": ErrorPage,

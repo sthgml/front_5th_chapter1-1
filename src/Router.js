@@ -19,6 +19,8 @@ export default class Router {
 
     this.basePath = basePath;
     this.currentPath = window.location.pathname.replace(this.basePath, "");
+    console.log(this.currentPath);
+    console.log(this.basePath);
     this._routes = routes;
     this.loginStore = loginStore;
   }
