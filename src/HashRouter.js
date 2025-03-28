@@ -9,7 +9,7 @@ export default class HashRouter extends Router {
   // override
   startDetectForHash() {
     window.addEventListener("hashchange", () => {
-      if (window.location.href.length >= 1) {
+      if (window.location.hash.length >= 1) {
         this.currentPath = window.location.hash.slice(1) || "/";
         this.render();
       }
