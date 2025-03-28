@@ -1,33 +1,33 @@
-var b=Object.defineProperty;var h=(o,t,e)=>t in o?b(o,t,{enumerable:!0,configurable:!0,writable:!0,value:e}):o[t]=e;var l=(o,t,e)=>h(o,typeof t!="symbol"?t+"":t,e);(function(){const t=document.createElement("link").relList;if(t&&t.supports&&t.supports("modulepreload"))return;for(const n of document.querySelectorAll('link[rel="modulepreload"]'))s(n);new MutationObserver(n=>{for(const a of n)if(a.type==="childList")for(const d of a.addedNodes)d.tagName==="LINK"&&d.rel==="modulepreload"&&s(d)}).observe(document,{childList:!0,subtree:!0});function e(n){const a={};return n.integrity&&(a.integrity=n.integrity),n.referrerPolicy&&(a.referrerPolicy=n.referrerPolicy),n.crossOrigin==="use-credentials"?a.credentials="include":n.crossOrigin==="anonymous"?a.credentials="omit":a.credentials="same-origin",a}function s(n){if(n.ep)return;n.ep=!0;const a=e(n);fetch(n.href,a)}})();const u=(o,t)=>`
+var u=Object.defineProperty;var b=(s,t,e)=>t in s?u(s,t,{enumerable:!0,configurable:!0,writable:!0,value:e}):s[t]=e;var l=(s,t,e)=>b(s,typeof t!="symbol"?t+"":t,e);(function(){const t=document.createElement("link").relList;if(t&&t.supports&&t.supports("modulepreload"))return;for(const o of document.querySelectorAll('link[rel="modulepreload"]'))n(o);new MutationObserver(o=>{for(const a of o)if(a.type==="childList")for(const d of a.addedNodes)d.tagName==="LINK"&&d.rel==="modulepreload"&&n(d)}).observe(document,{childList:!0,subtree:!0});function e(o){const a={};return o.integrity&&(a.integrity=o.integrity),o.referrerPolicy&&(a.referrerPolicy=o.referrerPolicy),o.crossOrigin==="use-credentials"?a.credentials="include":o.crossOrigin==="anonymous"?a.credentials="omit":a.credentials="same-origin",a}function n(o){if(o.ep)return;o.ep=!0;const a=e(o);fetch(o.href,a)}})();const c=(s,t)=>`
   <nav class="bg-white shadow-md p-2 sticky top-14">
     <ul class="flex justify-around">
       <li>
-        <a data-path='/' href='/' class="${o==="/"?"text-blue-600 font-bold":"text-gray-600"}">
+        <a data-path='/' href='/' class="${s==="/"?"text-blue-600 font-bold":"text-gray-600"}">
         홈
         </a>
       </li>
       <li>
-        <a data-path='/profile' href='/profile' class=${o==="/profile"?"text-blue-600 font-bold":"text-gray-600"}>프로필</a></button></li>
+        <a data-path='/profile' href='/profile' class=${s==="/profile"?"text-blue-600 font-bold":"text-gray-600"}>프로필</a></button></li>
       <li>
       <li>
-        ${t.isLoggedIn()?p():f()}
+        ${t.isLoggedIn()?f():h()}
       </li>
       </button>
     </li>
     </ul>
   </nav>
-`,f=()=>`
+`,h=()=>`
   <a id="login" data-path='/login' href='/login' class="text-gray-600">로그인</a>
-`,p=()=>`
+`,f=()=>`
   <a id="logout" data-path='/' href="/login" class="text-gray-600">로그아웃</a>
-`,c=({currentPath:o,loginStore:t})=>`
+`,p=({currentPath:s,loginStore:t})=>`
   <div class="bg-gray-100 min-h-screen flex justify-center">
     <div class="max-w-md w-full">
       <header class="bg-blue-600 text-white p-4 sticky top-0">
         <h1 class="text-2xl font-bold">항해플러스</h1>
       </header>
 
-      ${u(o,t)}
+      ${c(s,t)}
 
       <main class="p-4">
         <div class="mb-4 bg-white rounded-lg shadow p-4">
@@ -124,7 +124,7 @@ var b=Object.defineProperty;var h=(o,t,e)=>t in o?b(o,t,{enumerable:!0,configura
       </footer>
     </div>
   </div>
-`,m=({currentPath:o,loginStore:t})=>`
+`,m=({currentPath:s,loginStore:t})=>`
   <div id="root">
     <div class="bg-gray-100 min-h-screen flex justify-center">
       <div class="max-w-md w-full">
@@ -132,7 +132,7 @@ var b=Object.defineProperty;var h=(o,t,e)=>t in o?b(o,t,{enumerable:!0,configura
           <h1 class="text-2xl font-bold">항해플러스</h1>
         </header>
 
-        ${u(o,t)}
+        ${c(s,t)}
 
         <main class="p-4">
           <div class="bg-white p-8 rounded-lg shadow-md">
@@ -234,4 +234,4 @@ ${t.getUserInfo().bio}</textarea>
       </a>
     </div>
   </main>
-`,x={"/":c,"":c,"/profile":m,"/login":g,"*":v};class i{constructor(t,e,s=""){l(this,"currentPath");l(this,"loginStore");l(this,"basePath");if(i.instance)return i.instance;i.instance=this,this.basePath=s,this.currentPath=window.location.pathname.replace(this.basePath,""),console.log(this.currentPath),console.log(this.basePath),this._routes=t,this.loginStore=e}addRoute(t,e){this._routes==null&&(this._routes[t]=e)}startDetect(){window.addEventListener("popstate",()=>{this.currentPath=window.location.pathname.replace(this.basePath,""),this.render()})}init(){this.startDetect(),this.render()}navigate(t){this.currentPath=t,t=this.basePath+t,window.history.pushState({path:t},"",t),window.dispatchEvent(new Event("popstate"))}needRedirect(t){const e=this.loginStore.isLoggedIn();if(t==="/profile"&&!e)return"/login";if(t==="/login"&&e)return"/"}render(){const t=this.needRedirect(this.currentPath);t!=null&&this.navigate(t);const s=this._handleRoute(this.currentPath)({currentPath:this.currentPath,loginStore:this.loginStore});this.attachDocument(s)}_handleRoute(t){return this._routes[t]||this._routes["*"]}attachDocument(t){const e=document.getElementById("root");e.innerHTML=t}}class w extends i{constructor(t,e,s){super(t,e,s),this.startDetectForHash()}startDetectForHash(){window.addEventListener("hashchange",()=>{this.currentPath=window.location.hash.slice(1)||"/",this.render()})}}class r{constructor(){l(this,"userInfo",null);l(this,"key","user");if(r.instance)return r.instance;const t=localStorage.getItem(this.key);this.userInfo=JSON.parse(t),r.instance=this}getUserInfo(){return this.userInfo}setUserInfo(t){if(this.userInfo=t,t==null){localStorage.removeItem(this.key);return}localStorage.setItem(this.key,JSON.stringify(t))}isLoggedIn(){return this.userInfo!=null}}const y="/front_5th_chapter1-1";function P(){const o=new r,t=new w(x,o,y);t.init(),window.addEventListener("click",e=>{const s=e.target;if(s){if(s.dataset.path==null||s.id==="login")return;s.id==="logout"&&o.setUserInfo(null),t.navigate(s.dataset.path)}}),window.addEventListener("submit",e=>{if(e.target.id==="login-form"){const s=e.target.elements;o.setUserInfo({username:s.username.value,email:"",bio:""}),t.navigate("/")}if(e.target.id==="profile-form"){const s=e.target.elements;o.setUserInfo({username:s.username.value,email:s.email.value,bio:s.bio.value}),t.navigate("")}})}P();
+`,x={"/":p,"/profile":m,"/login":g,"*":v};class i{constructor(t,e,n=""){l(this,"currentPath");l(this,"loginStore");l(this,"basePath");if(i.instance)return i.instance;i.instance=this,this.basePath=n,this.currentPath=window.location.pathname.replace(this.basePath,""),this._routes=t,this.loginStore=e}addRoute(t,e){this._routes==null&&(this._routes[t]=e)}startDetect(){window.addEventListener("popstate",()=>{this.currentPath=window.location.pathname.replace(this.basePath,""),this.render()})}init(){this.startDetect(),this.render()}navigate(t){this.currentPath=t,t=this.basePath+t,window.history.pushState({path:t},"",t),window.dispatchEvent(new Event("popstate"))}needRedirect(t){const e=this.loginStore.isLoggedIn();if(t==="/profile"&&!e)return"/login";if(t==="/login"&&e)return"/"}render(){const t=this.needRedirect(this.currentPath);t!=null&&this.navigate(t);const n=this._handleRoute(this.currentPath)({currentPath:this.currentPath,loginStore:this.loginStore});this.attachDocument(n)}_handleRoute(t){return this._routes[t]||this._routes["*"]}attachDocument(t){const e=document.getElementById("root");e.innerHTML=t}}class w extends i{constructor(t,e){super(t,e),this.startDetectForHash()}startDetectForHash(){window.addEventListener("hashchange",()=>{this.currentPath=window.location.hash.slice(1)||"/",this.render()})}}class r{constructor(){l(this,"userInfo",null);l(this,"key","user");if(r.instance)return r.instance;const t=localStorage.getItem(this.key);this.userInfo=JSON.parse(t),r.instance=this}getUserInfo(){return this.userInfo}setUserInfo(t){if(this.userInfo=t,t==null){localStorage.removeItem(this.key);return}localStorage.setItem(this.key,JSON.stringify(t))}isLoggedIn(){return this.userInfo!=null}}const y="/front_5th_chapter1-1";function P(){const s=new r,t=new w(x,s,y);t.init(),window.addEventListener("click",e=>{const n=e.target;if(n){if(n.dataset.path==null||n.id==="login")return;n.id==="logout"&&s.setUserInfo(null),t.navigate(n.dataset.path)}}),window.addEventListener("submit",e=>{if(e.target.id==="login-form"){const n=e.target.elements;s.setUserInfo({username:n.username.value,email:"",bio:""}),t.navigate("/")}if(e.target.id==="profile-form"){const n=e.target.elements;s.setUserInfo({username:n.username.value,email:n.email.value,bio:n.bio.value}),t.navigate("")}})}P();
