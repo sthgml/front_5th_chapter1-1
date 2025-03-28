@@ -1,7 +1,7 @@
 import routes from "./routes.js";
 import HashRouter from "./HashRouter.js";
 import LoginStore from "./stores/LoginStore.js";
-const BASE_URL = import.meta.env.VITE_BASE_URL;
+const BASE_URL = import.meta.env.VITE_BASE_URL ?? "";
 
 function main() {
   const loginStore = new LoginStore();

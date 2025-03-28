@@ -11,7 +11,6 @@ export default class HashRouter extends Router {
     window.addEventListener("hashchange", () => {
       if (window.location.href.length >= 1) {
         this.currentPath = window.location.hash.slice(1) || "/";
-        console.log("hashchange", this.currentPath);
         this.render();
       }
     });
